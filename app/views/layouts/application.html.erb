@@ -12,7 +12,9 @@
     <nav class = "topnav">
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
-      <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+      <% if !current_admin? %>
+        <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+      <% end %>
       <% if current_user %>
           <%= link_to "Log out", "/logout" %>
       <% else %>
@@ -21,6 +23,10 @@
       <% end %>
       <% if current_merchant? %>
       <%= link_to "Merchant Dashboard", "/merchant" %>
+      <% end %>
+      <% if current_admin? %>
+      <%= link_to "All Users", "/admin/users" %>
+      <%= link_to "Admin Dashboard", "/admin" %>
       <% end %>
     </nav>
     <% flash.each do |name, msg| %>

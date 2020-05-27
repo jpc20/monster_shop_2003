@@ -70,6 +70,37 @@ RSpec.describe "User registration form" do
     expect(current_path).to eq('/register')
 
   end
+  it "prevents email reuse" do
+    visit "/"
+
+    click_on "Register"
+
+    expect(current_path).to eq('/register')
+
+    name = "funbucket13"
+    address = "test"
+    city = ""
+    state = "CO"
+    zip = "80127"
+    email = "test.com"
+    password = "1234"
+    # wrong_pass = "2333"
+
+    fill_in :name, with: name
+    fill_in :address, with: address
+    fill_in :city, with: city
+    fill_in :state, with: state
+    fill_in :zip, with: zip
+    fill_in :email, with: email
+    fill_in :password, with: password
+    fill_in :confirm_password, with: password
+
+    click_on "Submit"
+
+    expect(page).to have_content("Please fill in city")
+    expect(current_path).to eq('/register')
+
+  end
 end
 
 # [ ] done

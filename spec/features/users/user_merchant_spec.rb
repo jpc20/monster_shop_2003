@@ -18,4 +18,17 @@ RSpec.describe "As a merchant" do
     click_on "Merchant Dashboard"
     expect(current_path).to eq("/merchant")
   end
+
+  it "Doesn't allow me to visit role protected pages" do
+    user = create(:user, role: 1)
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+
+    visit '/admin'
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+  end
 end

@@ -20,4 +20,27 @@ RSpec.describe "As a Admin" do
     click_on "Admin Dashboard"
     expect(current_path).to eq("/admin")
   end
+
+  it "Doesn't allow me to visit role protected pages" do
+    user = create(:user, role: 2)
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+
+    visit '/merchant'
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit '/cart'
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+  end
+
 end
+
+# User Story 9, Admin Navigation Restrictions
+#
+# As an admin
+# When I try to access any path that begins with the following, then I see a 404 error:
+# - '/merchant'
+# - '/cart'

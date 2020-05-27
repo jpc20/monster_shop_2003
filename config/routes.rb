@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get "/register", to: 'users#new'
   post "/users", to: 'users#create'
+  get "/profile", to: 'users#show'
 
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"

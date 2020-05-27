@@ -11,7 +11,7 @@ RSpec.describe "Logging In" do
     fill_in :password, with: user.password
     click_on "Log In"
     expect(current_path).to eq('/profile')
-    expect(page).to have_content("Welcome, #{user.name}")
+    expect(page).to have_content("Logged in as #{user.name}")
     expect(page).to have_link("Log out")
     expect(page).to_not have_link("Register")
     expect(page).to_not have_link("Login")

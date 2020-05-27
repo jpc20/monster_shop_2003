@@ -15,7 +15,6 @@ RSpec.describe "User registration form" do
     zip = "80127"
     email = "bucket@bucket.com"
     password = "1234"
-    # wrong_pass = "2333"
 
     fill_in :name, with: name
     fill_in :address, with: address
@@ -32,14 +31,9 @@ RSpec.describe "User registration form" do
 
     expect(page).to have_content("Hi #{name} you have registered and logged in!")
   end
+
   it "prevents email reuse" do
-    user_1 = User.create(name: "john",
-                         address: "1234 town",
-                          city: "Denver",
-                          state: "CO",
-                          zip: "80127",
-                          email: "test.com",
-                          password: "1234")
+    create(:user)
     visit "/"
 
     click_on "Register"
@@ -53,7 +47,6 @@ RSpec.describe "User registration form" do
     zip = "80127"
     email = "test.com"
     password = "1234"
-    # wrong_pass = "2333"
 
     fill_in :name, with: name
     fill_in :address, with: address
@@ -67,10 +60,11 @@ RSpec.describe "User registration form" do
     click_on "Submit"
 
     expect(page).to have_content("This email already exists")
-    expect(current_path).to eq('/register')
+    expect(current_path).to eq('/users')
 
   end
-  it "prevents email reuse" do
+
+  it "Requires all fields" do
     visit "/"
 
     click_on "Register"
@@ -84,7 +78,6 @@ RSpec.describe "User registration form" do
     zip = "80127"
     email = "test.com"
     password = "1234"
-    # wrong_pass = "2333"
 
     fill_in :name, with: name
     fill_in :address, with: address

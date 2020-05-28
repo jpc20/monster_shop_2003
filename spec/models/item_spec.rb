@@ -80,7 +80,6 @@ describe Item, type: :model do
       expect(Item.most_popular.first.total_quantity).to eq(10)
       expect(Item.most_popular.last.name).to eq("Spokes")
       expect(Item.most_popular.last.total_quantity).to eq(6)
-    # expect(Item.most_popular).to eq([@pedal, @streamers, @glitter, @gum, @spokes])
     end
 
     it 'least_popular' do
@@ -88,7 +87,6 @@ describe Item, type: :model do
       expect(Item.least_popular.first.total_quantity).to eq(1)
       expect(Item.least_popular.last.name).to eq("Cards")
       expect(Item.least_popular.last.total_quantity).to eq(5)
-      # expect(Item.least_popular).to eq([@tire, @pull_toy, @seat, @handle_bars, @cards])
     end
   end
 end

@@ -111,12 +111,30 @@ RSpec.describe "User registration form" do
     expect(page).to have_content("The page you were looking for doesn't exist.")
 
   end
-  
+
+  it "Doesn't allow me log in more than once" do
+    user = create(:user, role: 0)
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+
+    visit "/login"
+    expect(page).to have_content('Already Logged in!')
+    expect(current_path).to eq('/profile')
+  end
+
+  it "Doesn't allow me log in more than once" do
+    user = create(:user, role: 0)
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+
+    click_on "Log out"
+    expect(current_path).to eq(root_path)
+    expect(page).to have_content("Logged Out")
+  end
 end
-
-
-# User Story 8, Merchant Navigation Restrictions
-#
-# As a merchant employee
-# When I try to access any path that begins with the following, then I see a 404 error:
-# - '/admin'

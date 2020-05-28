@@ -9,7 +9,7 @@ RSpec.describe "As a merchant" do
     fill_in :email, with: user.email
     fill_in :password, with: user.password
     click_on "Log In"
-    expect(current_path).to eq('/profile')
+    expect(current_path).to eq('/merchant')
 
     expect(page).to have_content("Logged in as #{user.name}")
     expect(page).to have_link("Log out")
@@ -30,5 +30,18 @@ RSpec.describe "As a merchant" do
     visit '/admin'
     expect(page).to have_content("The page you were looking for doesn't exist.")
 
+  end
+
+  it "Doesn't allow me log in more than once" do
+    user = create(:user, role: 1)
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+
+    visit "/login"
+    expect(page).to have_content('Already Logged in!')
+    expect(current_path).to eq('/merchant')
   end
 end

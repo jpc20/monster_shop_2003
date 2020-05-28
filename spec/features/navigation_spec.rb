@@ -17,6 +17,13 @@ RSpec.describe 'Site Navigation' do
       end
 
       expect(current_path).to eq('/merchants')
+
+      within 'nav' do
+        click_link 'Login'
+      end
+
+      expect(current_path).to eq('/login')
+
     end
 
     it "I can see a cart indicator on all pages" do
@@ -32,6 +39,18 @@ RSpec.describe 'Site Navigation' do
         expect(page).to have_content("Cart: 0")
       end
 
+    end
+
+    it "Doesn't allow me to visit role protected pages" do
+
+      visit '/merchant'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+      visit '/admin'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
+
+      visit '/profile'
+      expect(page).to have_content("The page you were looking for doesn't exist.")
     end
   end
 end

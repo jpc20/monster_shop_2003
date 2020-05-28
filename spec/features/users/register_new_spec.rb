@@ -94,28 +94,47 @@ RSpec.describe "User registration form" do
     expect(current_path).to eq('/register')
 
   end
-end
 
-# [ ] done
-#
-# User Story 10, User Registration
-#
-# As a visitor
-# When I click on the 'register' link in the nav bar
-# Then I am on the user registration page ('/register')
-# And I see a form where I input the following data:
-# - my name
-# - my street address
-# - my city
-# - my state
-# - my zip code
-# - my email address
-# - my preferred password
-# - a confirmation field for my password
-#
-# When I fill in this form completely,
-# And with a unique email address not already in the system
-# My details are saved in the database
-# Then I am logged in as a registered user
-# I am taken to my profile page ("/profile")
-# I see a flash message indicating that I am now registered and logged in
+  it "Doesn't allow me to visit role protected pages" do
+    user = create(:user, role: 0)
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+
+
+    visit '/merchant'
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+    visit '/admin'
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+
+  end
+
+  it "Doesn't allow me log in more than once" do
+    user = create(:user, role: 0)
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+
+    visit "/login"
+    expect(page).to have_content('Already Logged in!')
+    expect(current_path).to eq('/profile')
+  end
+
+  it "Doesn't allow me log in more than once" do
+    user = create(:user, role: 0)
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+
+    click_on "Log out"
+    expect(current_path).to eq(root_path)
+    expect(page).to have_content("Logged Out")
+  end
+end

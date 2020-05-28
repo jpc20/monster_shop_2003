@@ -1,0 +1,21 @@
+<%= form_tag("/users", method: :patch) do %>
+  <%= label_tag "Name" %>
+  <%= text_field_tag :name, current_user[:name] %><br/>
+
+  <%= label_tag "Address" %>
+  <%= text_field_tag :address, current_user[:address] %><br/>
+
+  <%= label_tag "City" %>
+  <%= text_field_tag :city, current_user[:city] %><br/>
+
+  <%= label_tag "State" %>
+  <%= text_field_tag :state, current_user[:state] %><br/>
+
+  <%= label_tag "Zip" %>
+  <%= text_field_tag :zip, current_user[:zip] %><br/>
+
+  <%= label_tag "Email" %>
+  <%= text_field_tag :email, current_user[:email] %><br/>
+
+  <%= submit_tag "Submit" %>
+  <% end %>

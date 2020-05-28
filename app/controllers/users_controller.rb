@@ -2,11 +2,33 @@ class UsersController < ApplicationController
 
   def show
     render file: "/public/404" unless current_user
+
   end
 
   def new
     return @user if params[:user]
     @user = Hash.new("")
+  end
+
+  def edit
+
+  end
+
+  def password
+
+  end
+
+  def password_change
+    if user_params[:password] == user_params[:password_confirmation]
+      current_user.update_attribute(:password, params[:password])
+      if current_user.save
+        flash[:success] = "Your password has been changed!"
+        redirect_to "/profile"
+      end
+    else
+      flash[:error] = "Password and Confirmation do not match"
+      render :password
+    end
   end
 
   def create
@@ -25,10 +47,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    current_user.update(user_params)
+    if current_user.save
+      flash[:success] = "Your data is updated!"
+      redirect_to "/profile"
+    else
+      flash[:error] = current_user.errors.full_messages.to_sentence
+      render :edit
+    end
+
+  end
+
   private
 
   def user_params
-    params.permit(:name, :address, :city, :state, :zip, :email, :password)
+    params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
   end
-
 end

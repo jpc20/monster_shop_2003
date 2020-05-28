@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   end
 
   get "/register", to: 'users#new'
+  get "/register/edit", to: 'users#edit'
+  get "/register/password", to: 'users#password'
   post "/users", to: 'users#create'
+  patch "/users", to: 'users#update'
+  patch "/users/password_change", to: "users#password_change"
   get "/profile", to: 'users#show'
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"

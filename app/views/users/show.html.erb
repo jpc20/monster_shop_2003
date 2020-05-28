@@ -1,1 +1,9 @@
-This is  your profile
+<h1>User Profile</h1>
+<p class="address"> <%= current_user.name %></p>
+<p class="address"> <%= current_user.email %></p>
+<p class="address"> <%= current_user.address %></p>
+<p class="address"><%= current_user.city %>, <%= current_user.state %> <%= current_user.zip %></p>
+
+
+<ul><%= link_to "Update Profile Information", "/register/edit" %></ul>
+<ul><%= link_to "Change Password", "/register/password" %></ul>

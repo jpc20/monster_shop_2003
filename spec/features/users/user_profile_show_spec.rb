@@ -23,7 +23,7 @@ RSpec.describe "User Profile page" do
     fill_in :zip, with: zip
     fill_in :email, with: email
     fill_in :password, with: password
-    fill_in :confirm_password, with: password
+    fill_in :password_confirmation, with: password
 
     click_on "Submit"
 
@@ -60,7 +60,7 @@ RSpec.describe "User Profile page" do
     fill_in :zip, with: zip
     fill_in :email, with: email
     fill_in :password, with: password
-    fill_in :confirm_password, with: password
+    fill_in :password_confirmation, with: password
 
     click_on "Submit"
 
@@ -111,7 +111,7 @@ RSpec.describe "User Profile page" do
     fill_in :zip, with: zip
     fill_in :email, with: email
     fill_in :password, with: password
-    fill_in :confirm_password, with: password
+    fill_in :password_confirmation, with: password
 
     click_on "Submit"
 
@@ -156,7 +156,7 @@ RSpec.describe "User Profile page" do
     fill_in :zip, with: zip
     fill_in :email, with: email
     fill_in :password, with: password
-    fill_in :confirm_password, with: password
+    fill_in :password_confirmation, with: password
 
     click_on "Submit"
 
@@ -164,7 +164,7 @@ RSpec.describe "User Profile page" do
     click_on "Change Password"
     expect(current_path).to eq('/register/password')
     fill_in :password, with: "5678"
-    fill_in :confirm_password, with: "5678"
+    fill_in :password_confirmation, with: "5678"
     click_on "Submit"
     expect(current_path).to eq('/profile')
     expect(page).to have_content("Your password has been changed!")

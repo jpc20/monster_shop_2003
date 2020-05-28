@@ -19,10 +19,15 @@ class UsersController < ApplicationController
   end
 
   def password_change
-    current_user.update_attribute(:password, params[:password])
-    if current_user.save
-      flash[:success] = "Your password has been changed!"
-      redirect_to "/profile"
+    if user_params[:password] == user_params[:password_confirmation]
+      current_user.update_attribute(:password, params[:password])
+      if current_user.save
+        flash[:success] = "Your password has been changed!"
+        redirect_to "/profile"
+      end
+    else
+      flash[:error] = "Password and Confirmation do not match"
+      render :password
     end
   end
 
@@ -57,6 +62,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:name, :address, :city, :state, :zip, :email, :password)
+    params.permit(:name, :address, :city, :state, :zip, :email, :password, :password_confirmation)
   end
 end

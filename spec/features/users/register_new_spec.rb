@@ -23,7 +23,7 @@ RSpec.describe "User registration form" do
     fill_in :zip, with: zip
     fill_in :email, with: email
     fill_in :password, with: password
-    fill_in :confirm_password, with: password
+    fill_in :password_confirmation, with: password
 
     click_on "Submit"
 
@@ -55,7 +55,7 @@ RSpec.describe "User registration form" do
     fill_in :zip, with: zip
     fill_in :email, with: email
     fill_in :password, with: password
-    fill_in :confirm_password, with: password
+    fill_in :password_confirmation, with: password
 
     click_on "Submit"
 
@@ -86,7 +86,7 @@ RSpec.describe "User registration form" do
     fill_in :zip, with: zip
     fill_in :email, with: email
     fill_in :password, with: password
-    fill_in :confirm_password, with: password
+    fill_in :password_confirmation, with: password
 
     click_on "Submit"
 

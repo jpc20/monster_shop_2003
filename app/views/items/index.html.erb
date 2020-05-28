@@ -23,3 +23,13 @@
     </section>
     <% end %>
 </section>
+<section class="most_popular">
+  <% @items.most_popular.each do |item| %>
+    <p><%= "#{item.name} quantity: #{item.total_quantity}" %></p>
+  <% end %>
+</section>
+<section class="least_popular">
+     <% @items.least_popular.each do |item| %>
+       <p><%= "#{item.name} quantity: #{item.total_quantity}" %></p>
+     <% end %>
+</section>

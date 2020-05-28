@@ -28,4 +28,22 @@ class Item <ApplicationRecord
   def self.all_active
     where(active?: :true)
   end
+
+  def self.most_popular
+   joins(:item_orders)
+   .group(:item_id, :name)
+   .select("items.name", "sum(quantity) as total_quantity")
+   .order("total_quantity desc")
+   .limit(5)
+    # require "pry"; binding.pry
+  end
+
+  def self.least_popular
+   joins(:item_orders)
+   .group(:item_id, :name)
+   .select("items.name", "sum(quantity) as total_quantity")
+   .order("total_quantity")
+   .limit(5)
+    # require "pry"; binding.pry
+  end
 end

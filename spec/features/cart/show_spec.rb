@@ -74,14 +74,12 @@ RSpec.describe 'Cart show' do
         within "#cart-item-#{@pencil.id}" do
           click_button("Remove Item")
         end
-        save_and_open_page
         within "#cart-item-#{@pencil.id}" do
           expect(page).to have_content("1")
         end
         within "#cart-item-#{@pencil.id}" do
           click_button("Remove Item")
         end
-        save_and_open_page
         expect(page).to_not have_css("#cart-item-#{@pencil.id}")
       end
 
@@ -97,6 +95,20 @@ RSpec.describe 'Cart show' do
         within "#cart-item-#{@pencil.id}" do
           expect(page).to have_content("2")
         end
+      end
+
+      it "Visitors must register or log in to check out" do
+        visit '/cart'
+        expect(page).to have_content("You must Login or Register to finish the checkout process")
+        within ".visitor-warning" do
+          click_link("Login")
+        end
+        expect(current_path).to eq(login_path)
+        visit 'cart'
+        within ".visitor-warning" do
+          click_link("Register")
+        end
+        expect(current_path).to eq(register_path)
       end
   end
 

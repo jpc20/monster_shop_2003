@@ -1,8 +1,13 @@
 class CartController < ApplicationController
   def add_item
     item = Item.find(params[:item_id])
-    cart.add_item(item.id.to_s)
-    flash[:success] = "#{item.name} was successfully added to your cart"
+    if item.inventory > (cart.contents[item.id.to_s] || 0)
+      cart.add_item(item.id.to_s)
+      flash[:success] = "#{item.name} was successfully added to your cart"
+    else
+      flash[:error] = "Not enough inventory!"
+    end
+    redirect_to "/cart" and return if params[:from] == "button"
     redirect_to "/items"
   end
 

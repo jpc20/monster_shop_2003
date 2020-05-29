@@ -22,7 +22,12 @@ class CartController < ApplicationController
   end
 
   def remove_item
-    session[:cart].delete(params[:item_id])
+    item = Item.find(params[:item_id])
+    if params[:from] == "button" && (cart.contents[item.id.to_s] > 1)
+      cart.remove_item(item.id.to_s)
+    else
+      session[:cart].delete(params[:item_id])
+    end
     redirect_to '/cart'
   end
 

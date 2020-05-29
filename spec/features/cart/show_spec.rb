@@ -66,6 +66,25 @@ RSpec.describe 'Cart show' do
         end
       end
 
+      it "I can decrease the count of each item in the cart" do
+        visit '/cart'
+        within "#cart-item-#{@pencil.id}" do
+          click_button("Add Another")
+        end
+        within "#cart-item-#{@pencil.id}" do
+          click_button("Remove Item")
+        end
+        save_and_open_page
+        within "#cart-item-#{@pencil.id}" do
+          expect(page).to have_content("1")
+        end
+        within "#cart-item-#{@pencil.id}" do
+          click_button("Remove Item")
+        end
+        save_and_open_page
+        expect(page).to_not have_css("#cart-item-#{@pencil.id}")
+      end
+
       it "I cannot increment the count beyond the item's inventory size" do
         visit '/cart'
         within "#cart-item-#{@pencil.id}" do

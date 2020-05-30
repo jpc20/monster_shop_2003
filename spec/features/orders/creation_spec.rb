@@ -125,7 +125,6 @@ RSpec.describe("Order Creation") do
       expect(page).to have_content("Your order has been created!")
       expect(page).to have_css(".order-#{Order.last.id}")
       expect(page).to have_content("Cart: 0")
-      save_and_open_page
     end
 
   end

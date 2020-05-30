@@ -5,6 +5,8 @@ RSpec.describe 'merchant index page', type: :feature do
     before :each do
       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
       @dog_shop = Merchant.create(name: "Meg's Dog Shop", address: '123 Dog Rd.', city: 'Hershey', state: 'PA', zip: 80203)
+      @tire = @bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+
       @admin = create(:user, role:2)
     end
 
@@ -25,7 +27,7 @@ RSpec.describe 'merchant index page', type: :feature do
       expect(current_path).to eq("/merchants/new")
     end
 
-    it "Admin can disabkle a merchant account" do
+    it "Admin can disable a merchant account" do
       visit "/"
       click_on "Login"
       fill_in :email, with: @admin.email
@@ -36,8 +38,19 @@ RSpec.describe 'merchant index page', type: :feature do
       expect(current_path).to eq("/admin/merchants")
       expect(page).to have_content("#{@bike_shop.name} has been disabled")
     end
+
+    it "Admin can disable a merchant account and that merchants items are all deactivated" do
+      visit "/"
+      click_on "Login"
+      fill_in :email, with: @admin.email
+      fill_in :password, with: @admin.password
+      click_on "Log In"
+      visit "/admin/merchants"
+      click_on "Disable #{@bike_shop.name}"
+      visit "/merchants/#{@bike_shop.id}/items"
+      within "#item-#{@tire.id}" do
+        expect(page).to have_content("Inactive")
+      end
+    end
   end
 end
-
-# When I visit the admin's merchant index page ('/admin/merchants')
-# I see a "disable" button next to any merchants who are not yet disabled

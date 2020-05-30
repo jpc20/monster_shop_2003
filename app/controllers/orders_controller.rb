@@ -1,7 +1,7 @@
 class OrdersController <ApplicationController
 
   def index
-
+    @orders = User.find(session[:user_id]).orders
   end
 
   def new
@@ -23,6 +23,7 @@ class OrdersController <ApplicationController
       end
       session.delete(:cart)
       if current_user
+        current_user.orders << order
         flash[:success] = "Your order has been created!"
         redirect_to "/profile/orders"
       else

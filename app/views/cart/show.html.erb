@@ -1,5 +1,7 @@
 <h1>Cart</h1>
-
+<% if !current_user %>
+<h3 class="visitor-warning">You must <%= link_to "Login", login_path %> or <%= link_to "Register", register_path %> to finish the checkout process</h3>
+<% end %>
 <% if !@items.empty? %>
 <center>
 <table class = "cart-items">
@@ -30,7 +32,11 @@
       </td>
       <td>
         <center>
-          <p><%=quantity%></p>
+          <p>
+              <%=quantity%>
+              <%= button_to "Add Another", "/cart/#{item.id}/?from=button" %>
+              <%= button_to "Remove Item", "/cart/#{item.id}/?from=button", method: :delete %>
+          </p>
           <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
         </center>
         </td>

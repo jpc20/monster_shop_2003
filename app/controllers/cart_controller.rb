@@ -1,8 +1,13 @@
 class CartController < ApplicationController
   def add_item
     item = Item.find(params[:item_id])
-    cart.add_item(item.id.to_s)
-    flash[:success] = "#{item.name} was successfully added to your cart"
+    if item.inventory > (cart.contents[item.id.to_s] || 0)
+      cart.add_item(item.id.to_s)
+      flash[:success] = "#{item.name} was successfully added to your cart"
+    else
+      flash[:error] = "Not enough inventory!"
+    end
+    redirect_to "/cart" and return if params[:from] == "button"
     redirect_to "/items"
   end
 
@@ -17,7 +22,12 @@ class CartController < ApplicationController
   end
 
   def remove_item
-    session[:cart].delete(params[:item_id])
+    item = Item.find(params[:item_id])
+    if params[:from] == "button" && (cart.contents[item.id.to_s] > 1)
+      cart.remove_item(item.id.to_s)
+    else
+      session[:cart].delete(params[:item_id])
+    end
     redirect_to '/cart'
   end
 

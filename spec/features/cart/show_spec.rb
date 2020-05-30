@@ -9,7 +9,7 @@ RSpec.describe 'Cart show' do
 
         @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
         @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
-        @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+        @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 2)
         visit "/items/#{@paper.id}"
         click_on "Add To Cart"
         visit "/items/#{@tire.id}"
@@ -55,8 +55,63 @@ RSpec.describe 'Cart show' do
 
         expect(page).to have_content("Total: $124")
       end
-    end
+
+      it "I can increase the count of each item in the cart" do
+        visit '/cart'
+        within "#cart-item-#{@pencil.id}" do
+          click_button("Add Another")
+        end
+        within "#cart-item-#{@pencil.id}" do
+          expect(page).to have_content("2")
+        end
+      end
+
+      it "I can decrease the count of each item in the cart" do
+        visit '/cart'
+        within "#cart-item-#{@pencil.id}" do
+          click_button("Add Another")
+        end
+        within "#cart-item-#{@pencil.id}" do
+          click_button("Remove Item")
+        end
+        within "#cart-item-#{@pencil.id}" do
+          expect(page).to have_content("1")
+        end
+        within "#cart-item-#{@pencil.id}" do
+          click_button("Remove Item")
+        end
+        expect(page).to_not have_css("#cart-item-#{@pencil.id}")
+      end
+
+      it "I cannot increment the count beyond the item's inventory size" do
+        visit '/cart'
+        within "#cart-item-#{@pencil.id}" do
+          click_button("Add Another")
+        end
+        within "#cart-item-#{@pencil.id}" do
+          click_button("Add Another")
+        end
+        expect(page).to have_content("Not enough inventory!")
+        within "#cart-item-#{@pencil.id}" do
+          expect(page).to have_content("2")
+        end
+      end
+
+      it "Visitors must register or log in to check out" do
+        visit '/cart'
+        expect(page).to have_content("You must Login or Register to finish the checkout process")
+        within ".visitor-warning" do
+          click_link("Login")
+        end
+        expect(current_path).to eq(login_path)
+        visit 'cart'
+        within ".visitor-warning" do
+          click_link("Register")
+        end
+        expect(current_path).to eq(register_path)
+      end
   end
+
   describe "When I haven't added anything to my cart" do
     describe "and visit my cart show page" do
       it "I see a message saying my cart is empty" do
@@ -71,5 +126,12 @@ RSpec.describe 'Cart show' do
       end
 
     end
+
+  end
   end
 end
+
+
+# Next to each item in my cart
+# I see a button or link to increment the count of items I want to purchase
+# I cannot increment the count beyond the item's inventory size

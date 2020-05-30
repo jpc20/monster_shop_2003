@@ -52,5 +52,21 @@ RSpec.describe 'merchant index page', type: :feature do
         expect(page).to have_content("Inactive")
       end
     end
+    it "Admin can enable a merchant account and that merchants items are all reactivated" do
+      visit "/"
+      click_on "Login"
+      fill_in :email, with: @admin.email
+      fill_in :password, with: @admin.password
+      click_on "Log In"
+      visit "/admin/merchants"
+      click_on "Disable #{@bike_shop.name}"
+      click_on "Activate #{@bike_shop.name}"
+      expect(current_path).to eq("/admin/merchants")
+      expect(page).to have_content("#{@bike_shop.name} has been activated")
+      visit "/merchants/#{@bike_shop.id}/items"
+      within "#item-#{@tire.id}" do
+        expect(page).to have_content("Active")
+      end
+    end
   end
 end

@@ -58,5 +58,11 @@ describe Merchant, type: :model do
       expect(@meg.active?).to eq(false)
       expect(@tire.active?).to eq(false)
     end
+    it "activate" do
+      @meg.deactivate
+      @meg.activate
+      expect(@meg.active?).to eq(true)
+      expect(@tire.active?).to eq(true)
+    end
   end
 end

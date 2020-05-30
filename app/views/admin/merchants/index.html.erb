@@ -5,10 +5,11 @@
     <section class = "grid-item">
       <h2><%=link_to merchant.name, "/merchants/#{merchant.id}"%></h2>
       <% if merchant.active? %>
-        <p><%= "Active" %></p>
-        <p><%= link_to "Disable #{merchant.name}", "/admin/merchants/#{merchant.id}", method: :patch %></p>
+        <p>Active</p>
+        <p><%= link_to "Disable #{merchant.name}", "/admin/merchants/#{merchant.id}?activate=false", method: :patch %></p>
       <% else %>
-      <p><%= "Disabled" if !merchant.active? %></p>
+        <p>Disabled</p>
+        <p><%= link_to "Activate #{merchant.name}", "/admin/merchants/#{merchant.id}?activate=true", method: :patch %></p>
       <% end %>
     </section>
   <% end %>

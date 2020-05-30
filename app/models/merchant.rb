@@ -32,4 +32,10 @@ class Merchant <ApplicationRecord
     items.map(&:reload)
   end
 
+  def activate
+    update_attributes(active?: true)
+    items.update_all(active?: true)
+    items.map(&:reload)
+  end
+
 end

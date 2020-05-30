@@ -32,7 +32,8 @@ RSpec.describe 'merchant index page', type: :feature do
       fill_in :password, with: @admin.password
       click_on "Log In"
       visit "/admin/merchants"
-      click_on ".disable-merchant-#{@bike_shop.id}"
+      click_on "Disable #{@bike_shop.name}"
+      expect(current_path).to eq("/admin/merchants")
       expect(page).to have_content("#{@bike_shop.name} has been disabled")
     end
   end
@@ -40,6 +41,3 @@ end
 
 # When I visit the admin's merchant index page ('/admin/merchants')
 # I see a "disable" button next to any merchants who are not yet disabled
-# When I click on the "disable" button
-# I am returned to the admin's merchant index page where I see that the merchant's account is now disabled
-# And I see a flash message that the merchant's account is now disabled

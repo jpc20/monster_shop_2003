@@ -4,7 +4,12 @@
   <% @merchants.each do |merchant|%>
     <section class = "grid-item">
       <h2><%=link_to merchant.name, "/merchants/#{merchant.id}"%></h2>
-
+      <% if merchant.active? %>
+        <p><%= "Active" %></p>
+        <p><%= link_to "Disable #{merchant.name}", "/admin/merchants/#{merchant.id}", method: :patch %></p>
+      <% else %>
+      <p><%= "Disabled" if !merchant.active? %></p>
+      <% end %>
     </section>
   <% end %>
 </section>

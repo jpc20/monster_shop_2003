@@ -17,6 +17,7 @@
       <% end %>
       <% if current_user %>
           <%= link_to "Log out", "/logout", method: :delete %>
+          <%= link_to "Profile", profile_path %>
       <% else %>
         <%= link_to "Register", "/register" %>
         <%= link_to "Login", "/login" %>

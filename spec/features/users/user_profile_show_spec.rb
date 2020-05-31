@@ -212,10 +212,10 @@ RSpec.describe "User Profile page" do
       expect(page).to have_content(3)
     end
     within("#datecreated") do
-      expect(page).to have_content("Created:")#need to come back for date
+      expect(page).to have_content("Created: #{order1.created_at}")
     end
     within("#dateupdated") do
-      expect(page).to have_content("Last Updated:")#need to come back for date
+      expect(page).to have_content("Last Updated: #{order1.updated_at}")
     end
       expect(page).to have_content("Grand Total: $210")
   end

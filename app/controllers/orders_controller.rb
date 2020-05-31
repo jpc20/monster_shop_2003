@@ -35,6 +35,10 @@ class OrdersController <ApplicationController
     end
   end
 
+  def cancel
+    
+  end
+
 
   private
 

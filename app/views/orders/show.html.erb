@@ -46,4 +46,5 @@
 </section>
 <section id="datecreated">
   <p> <%= @order.created_at%></p>
+  <%=button_to("Cancel Order", "/orders/#{@order.id}/cancel", method: "patch")%>
 </section>

@@ -1,7 +1,32 @@
 <h1>Orders:</h1>
 
 <% @orders.each do |order| %>
-  <p class="order-<%= order.id %>">
-    <%= order.name %>
-  </p>
+<section id = "order-<%=order.id%>">
+<h2 align = "center">Order Info</h2>
+<center>
+  <table>
+    <tr>
+      <th>Order Id</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Quantity</th>
+    </tr>
+    <tr>
+        <td><p><%=link_to "#{order.id}", "/orders/#{order.id}"%></p></td>
+         <td><p><%= order.name %></p></td>
+        <td><p><%= order.status %></p></td>
+        <td><p><%= order.total_quantity %></p></td>
+    </tr>
+</table>
+<section id="datecreated">
+  <p>Created: <%= order.created_at%></p>
+</section>
+<section id="dateupdated">
+  <p> Last Updated: <%= order.updated_at%></p>
+</section>
+
+<section id="grandtotal">
+  <p>Grand Total: <%=number_to_currency(order.grandtotal)%></p>
+</section>
+</section>
 <% end %>

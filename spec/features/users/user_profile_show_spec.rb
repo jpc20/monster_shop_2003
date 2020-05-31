@@ -206,14 +206,18 @@ RSpec.describe "User Profile page" do
 
     visit "/profile/orders"
 
-    expect(page).to have_content(order1.id)
-    save_and_open_page
-    expect(page).to have_content("Created:")#need to come back for date
-    expect(page).to have_content("Last Updated:")#need to come back for date
-    expect(page).to have_content("pending")
-    expect(page).to have_content("Quantity")
-    expect(page).to have_content("Grand Total: $210")
-
+    within("#order-#{order1.id}") do
+      expect(page).to have_content(order1.id)
+      expect(page).to have_content("pending")
+      expect(page).to have_content(3)
+    end
+    within("#datecreated") do
+      expect(page).to have_content("Created:")#need to come back for date
+    end
+    within("#dateupdated") do
+      expect(page).to have_content("Last Updated:")#need to come back for date
+    end
+      expect(page).to have_content("Grand Total: $210")
   end
 end
 

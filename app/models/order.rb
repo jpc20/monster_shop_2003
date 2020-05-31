@@ -10,9 +10,10 @@ class Order <ApplicationRecord
     item_orders.sum('price * quantity')
   end
 
-  def unfulfilled_item_orders
+  def unfulfill_item_orders
     item_orders.each do |item_order|
-      item_order.status = "unfulfilled"
+      item_order.update_attribute(:status, "unfulfilled")
+      item_order.save
     end
   end
 end

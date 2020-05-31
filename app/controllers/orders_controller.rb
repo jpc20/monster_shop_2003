@@ -36,7 +36,12 @@ class OrdersController <ApplicationController
   end
 
   def cancel
-    
+    order = Order.find(params[:id])
+    order.unfulfill_item_orders
+    order.status = "cancelled"
+    order.save
+    flash[:success] = "Your order has been cancelled!"
+    redirect_to "/profile"
   end
 
 

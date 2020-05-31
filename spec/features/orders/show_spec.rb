@@ -39,6 +39,11 @@ RSpec.describe("Order Creation") do
     it "can cancel order" do
       visit "/orders/#{Order.last.id}"
       click_on "Cancel Order"
+      expect(Order.last.status).to eq("cancelled")
+      expect(ItemOrder.first.status).to eq("unfulfilled")
+      expect(ItemOrder.last.status).to eq("unfulfilled")
+
+
 
     end
   end

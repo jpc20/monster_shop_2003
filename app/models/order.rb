@@ -9,4 +9,10 @@ class Order <ApplicationRecord
   def grandtotal
     item_orders.sum('price * quantity')
   end
+
+  def unfulfilled_item_orders
+    item_orders.each do |item_order|
+      item_order.status = "unfulfilled"
+    end
+  end
 end

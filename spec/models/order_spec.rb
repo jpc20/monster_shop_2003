@@ -31,5 +31,10 @@ describe Order, type: :model do
     it 'grandtotal' do
       expect(@order_1.grandtotal).to eq(230)
     end
+    it 'unfulfilled_item_orders' do
+      @order_1.unfulfilled_item_orders
+      expect(ItemOrder.first.status).to eq("unfulfilled")
+      expect(ItemOrder.last.status).to eq("unfulfilled")
+    end
   end
 end

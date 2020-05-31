@@ -20,8 +20,6 @@ RSpec.describe "Order show page" do
 
     click_link "#{order1.id}"
     expect(current_path).to eq("/profile/orders/#{order1.id}")
-    save_and_open_page
-
 
     expect(page).to have_content("Order number: #{item_order1.order_id}")
     within("#order_status") do

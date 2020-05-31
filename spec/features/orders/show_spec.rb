@@ -32,7 +32,6 @@ RSpec.describe("Order Creation") do
       click_button "Create Order"
       expect(current_path).to eq("/profile/orders")
       expect(page).to have_content("Your order has been created!")
-      expect(page).to have_css(".order-#{Order.last.id}")
       expect(page).to have_content("Cart: 0")
 
     end

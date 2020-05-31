@@ -123,16 +123,9 @@ RSpec.describe("Order Creation") do
       click_button "Create Order"
       expect(current_path).to eq("/profile/orders")
       expect(page).to have_content("Your order has been created!")
-      expect(page).to have_css(".order-#{Order.last.id}")
+      expect(page).to have_css("#order-#{Order.last.id}")
       expect(page).to have_content("Cart: 0")
     end
 
   end
 end
-
-
-# An order is created in the system, which has a status of "pending"
-# I am taken to my orders page ("/profile/orders")
-# I see a flash message telling me my order was created
-# I see my new order listed on my profile orders page
-# My cart is now empty

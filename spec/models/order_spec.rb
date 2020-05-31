@@ -37,5 +37,8 @@ describe Order, type: :model do
       expect(ItemOrder.first.status).to eq("unfulfilled")
       expect(ItemOrder.last.status).to eq("unfulfilled")
     end
+    it 'total_quantity' do
+      expect(@order_1.total_quantity).to eq(5)
+    end
   end
 end

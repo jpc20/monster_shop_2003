@@ -16,4 +16,7 @@ class Order <ApplicationRecord
       item_order.save
     end
   end
+  def total_quantity
+    item_orders.sum(:quantity)
+  end
 end

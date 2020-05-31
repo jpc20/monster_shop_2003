@@ -220,12 +220,11 @@ RSpec.describe "User Profile page" do
       expect(page).to have_content("Grand Total: $210")
   end
 end
-
-# User Story 28, User Profile displays Orders
-#
-# As a registered user
-# When I visit my Profile Orders page, "/profile/orders"
-# I see every order I've made, which includes the following information:
+# # User Story 28, User Profile displays Orders
+# #
+# # As a registered user
+# # When I visit my Profile Orders page, "/profile/orders"
+# # I see every order I've made, which includes the following information:
 # - the ID of the order, which is a link to the order show page
 # - the date the order was made
 # - the date the order was last updated

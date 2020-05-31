@@ -44,10 +44,15 @@ RSpec.describe("Order Creation") do
       expect(ItemOrder.last.status).to eq("unfulfilled")
       expect(current_path).to eq("/profile")
       expect(page).to have_content("Your order has been cancelled!")
-
-
-
-
+    end
+    it "can package order" do
+      expect(Order.last.status).to eq("pending")
+      ItemOrder.first.status = "fulfilled"
+      ItemOrder.first.save
+      ItemOrder.last.status = "fulfilled"
+      ItemOrder.last.save
+      expect(ItemOrder.first.status).to eq("unfulfilled")
+      expect(ItemOrder.last.status).to eq("unfulfilled")
     end
   end
 end

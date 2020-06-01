@@ -48,5 +48,14 @@ RSpec.describe "As a Admin" do
     expect(page).to have_content('Already Logged in!')
     expect(current_path).to eq('/admin')
   end
+  it "Doesn't allow me log in more than once" do
+    user = create(:user, role: 2)
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+  end
+
 
 end

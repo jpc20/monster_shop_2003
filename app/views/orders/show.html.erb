@@ -57,3 +57,8 @@
 <section id="dateupdated">
   <p> Last Updated: <%= @order.updated_at%></p>
 </section>
+<% if @order.status == "shipped" %>
+  <p> This order has shipped.</p>
+<% else %>
+  <%=button_to("Cancel Order", "/orders/#{@order.id}/cancel", method: "patch")%>
+<% end %>

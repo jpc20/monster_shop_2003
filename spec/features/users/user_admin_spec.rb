@@ -99,6 +99,7 @@ RSpec.describe "As a Admin" do
 
     visit "/admin"
     click_on "Ship"
+    @order_1.reload
     expect(@order_1.status).to eq("shipped")
   end
 

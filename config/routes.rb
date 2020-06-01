@@ -61,4 +61,5 @@ Rails.application.routes.draw do
   post "/orders", to: "orders#create"
   get "/orders/:id", to: "orders#show"
   patch "/orders/:id/cancel", to: 'orders#cancel'
+  patch "/orders/:id/ship", to: 'orders#ship'
 end

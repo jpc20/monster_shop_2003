@@ -35,6 +35,13 @@ class OrdersController <ApplicationController
     end
   end
 
+  def ship
+    order = Order.find(params[:id])
+    order.update_attribute(:status, "shipped")
+    order.save
+    redirect_to "/admin"
+  end
+
   def cancel
     order = Order.find(params[:id])
     order.unfulfill_item_orders

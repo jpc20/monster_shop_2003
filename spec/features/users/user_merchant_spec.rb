@@ -62,6 +62,21 @@ RSpec.describe "As a merchant" do
     expect(page).to have_content(@bike_shop.city)
     expect(page).to have_content(@bike_shop.state)
     expect(page).to have_content(@bike_shop.zip)
+  end
+
+  it "Can see a link to all of the merchant's items" do
+    visit "/"
+    click_on "Login"
+    expect(current_path).to eq('/login')
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
+    click_on "Log In"
+    expect(current_path).to eq('/merchant')
+
+    expect(page).to have_link("Your Items")
+    click_on "Your Items"
+    
+    expect(current_path).to eq("/merchant/#{merchant_id}/items")
 
   end
 

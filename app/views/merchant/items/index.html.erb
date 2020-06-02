@@ -21,6 +21,7 @@
         <%= link_to "Activate", "/merchant/items/#{item.id}?type=activate", method: :patch %>
       <% end %>
       <%= button_to "delete", "/merchant/items/#{item.id}", method: :delete if item.orders.empty?  %>
+      <%= button_to "Edit Item", "/merchant/items/#{item.id}/edit", method: :get %>
     </section>
     <% end %>
 </section>

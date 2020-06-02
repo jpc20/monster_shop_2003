@@ -141,7 +141,7 @@ RSpec.describe "As a merchant" do
       expect(page).to have_content("Inactive")
     end
   end
-  it "Can see all items and deactivate them" do
+  it "Can see all items and activate them" do
     visit "/"
     click_on "Login"
     expect(current_path).to eq('/login')
@@ -249,5 +249,30 @@ RSpec.describe "As a merchant" do
     expect(page).to have_content("Name can't be blank and Inventory can't be blank")
     expect(page).to have_button("Create Item")
     expect(current_path).to eq("/merchants/#{@bike_shop.id}/items")
+  end
+
+  it "Can edit an item" do
+    visit "/"
+    click_on "Login"
+    expect(current_path).to eq('/login')
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
+    click_on "Log In"
+    click_on "Your Items"
+
+    within "#item-#{@seat.id}" do
+      click_button "Edit Item"
+    end
+
+    expect(current_path).to eq("/merchant/items/#{@seat.id}/edit")
+    fill_in "Name", with: "new name"
+    fill_in "Description", with: "new description"
+    click_button "Update Item"
+
+    within "#item-#{@seat.id}" do
+      expect(page).to have_content("new name")
+      expect(page).to have_content("new description")
+    end
+    expect(page).to have_content("Item Updated")
   end
 end

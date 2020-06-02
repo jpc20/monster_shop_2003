@@ -18,7 +18,7 @@
       </tr>
       <tr>
           <td><p><%=link_to "#{order.id}", "/merchant/orders/#{order.id}"%></p></td>
-          <td><p><%= order.total_quantity %></p></td>
+          <td><p><%= order.total_merchant_quantity(@merchant.id) %></p></td>
       </tr>
   </table>
   <section id="datecreated">

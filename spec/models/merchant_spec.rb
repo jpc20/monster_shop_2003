@@ -80,6 +80,7 @@ describe Merchant, type: :model do
       order_3.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
 
       expect(@meg.pending_orders.first.id).to eq(order_1.id)
+      expect(@meg.pending_orders.first.total_merchant_quantity(@meg.id)).to eq(4)
     end
   end
 end

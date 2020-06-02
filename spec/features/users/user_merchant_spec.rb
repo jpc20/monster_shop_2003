@@ -111,17 +111,21 @@ describe "As a merchant" do
   it "Can see order show page" do
     @flower_shop = Merchant.create(name: "Flower Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
     @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
+
     @user = create(:user, role: 1, merchant_id: @bike_shop.id)
     @user1 = create(:user, role: 0, email: "merch@merch.com")
+
     @tire = @bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
     @seat = @bike_shop.items.create(name: "Seat", description: "So comfy!", price: 10, image: "https://images.unsplash.com/photo-1582743779682-351861923531?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", inventory: 10)
+    @daisy = @flower_shop.items.create(name: "Daisy", description: "So cute!", price: 1, image: "https://images.unsplash.com/photo-1508784411316-02b8cd4d3a3a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", inventory: 110)
+
     @order1 = Order.create(name: @user1.name, address: @user1.address, city: @user1.city,
       state: @user1.state, zip: @user1.zip, user_id: @user1.id, status: "pending")
     @order2 = Order.create(name: @user1.name, address: @user1.address, city: @user1.city,
       state: @user1.state, zip: @user1.zip, user_id: @user1.id, status: "fulfilled")
+
     @item_order1 = ItemOrder.create(order_id: @order1.id, item_id: @tire.id, price: 100, quantity: 2)
     @item_order2 =ItemOrder.create(order_id: @order2.id, item_id: @seat.id, price: 10, quantity: 1)
-    @daisy = @flower_shop.items.create(name: "Daisy", description: "So cute!", price: 1, image: "https://images.unsplash.com/photo-1508784411316-02b8cd4d3a3a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", inventory: 110)
     @item_order3 = ItemOrder.create(order_id: @order1.id, item_id: @daisy.id, price: 1, quantity: 2)
     visit "/"
     click_on "Login"
@@ -133,7 +137,6 @@ describe "As a merchant" do
 
     click_on "#{@order1.id}"
     expect(current_path).to eq("/merchant/orders/#{@order1.id}")
-    save_and_open_page
 
     expect(page).to have_content(@user1.name)
     expect(page).to have_content(@user1.address)
@@ -145,22 +148,65 @@ describe "As a merchant" do
     expect(page).not_to have_content("Daisy")
 
     expect(page).to have_content(@tire.price)
-      expect(page).to have_css("img[src*='#{@tire.image}']")
+    expect(page).to have_css("img[src*='#{@tire.image}']")
     expect(page).to have_content(@item_order1.quantity)
 
     click_on "Gatorskins"
     expect(current_path).to eq("/items/#{@tire.id}")
   end
+  it "Can fulfill part of an order" do
+    @flower_shop = Merchant.create(name: "Flower Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
+    @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
+
+    @user = create(:user, role: 1, merchant_id: @bike_shop.id)
+    @user1 = create(:user, role: 0, email: "merch@merch.com")
+
+    @tire = @bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+    @seat = @bike_shop.items.create(name: "Seat", description: "So comfy!", price: 10, image: "https://images.unsplash.com/photo-1582743779682-351861923531?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", inventory: 10)
+    @daisy = @flower_shop.items.create(name: "Daisy", description: "So cute!", price: 1, image: "https://images.unsplash.com/photo-1508784411316-02b8cd4d3a3a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", inventory: 110)
+
+    @order1 = Order.create(name: @user1.name, address: @user1.address, city: @user1.city,
+      state: @user1.state, zip: @user1.zip, user_id: @user1.id, status: "pending")
+    @order2 = Order.create(name: @user1.name, address: @user1.address, city: @user1.city,
+      state: @user1.state, zip: @user1.zip, user_id: @user1.id, status: "pending")
+
+    @item_order1 = ItemOrder.create(order_id: @order1.id, item_id: @tire.id, price: 100, quantity: 2)
+    @item_order2 =ItemOrder.create(order_id: @order2.id, item_id: @seat.id, price: 10, quantity: 1)
+    @item_order3 = ItemOrder.create(order_id: @order1.id, item_id: @daisy.id, price: 1, quantity: 2)
+
+    visit "/"
+    click_on "Login"
+    expect(current_path).to eq('/login')
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
+    click_on "Log In"
+    expect(current_path).to eq('/merchant')
+
+    click_on "#{@order1.id}"
+    expect(current_path).to eq("/merchant/orders/#{@order1.id}")
+    expect(@tire.inventory).to eq(12)
+    click_button "Fulfill"
+    expect(current_path).to eq("/merchant/orders/#{@order1.id}")
+    @tire.reload
+    @item_order1.reload
+    expect(@tire.inventory).to eq(10)
+    expect(@item_order1.status).to eq("fulfilled")
+    expect(page).to have_content("You have fulfilled #{@tire.name}" )
+
+  end
+
 end
-# User Story 49, Merchant sees an order show page
+# User Story 50, Merchant fulfills part of an order
 #
 # As a merchant employee
 # When I visit an order show page from my dashboard
-# I see the recipients name and address that was used to create this order
-# I only see the items in the order that are being purchased from my merchant
-# I do not see any items in the order being purchased from other merchants
-# For each item, I see the following information:
-# - the name of the item, which is a link to my item's show page
-# - an image of the item
-# - my price for the item
-# - the quantity the user wants to purchase
+# For each item of mine in the order
+# If the user's desired quantity is equal to or less than my current inventory quantity for that item
+# And I have not already "fulfilled" that item:
+# - Then I see a button or link to "fulfill" that item
+# - When I click on that link or button I am returned to the order show page
+# - I see the item is now fulfilled
+# - I also see a flash message indicating that I have fulfilled that item
+# - the item's inventory quantity is permanently reduced by the user's desired quantity
+#
+# If I have already fulfilled this item, I see text indicating such.

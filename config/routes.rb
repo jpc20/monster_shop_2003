@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get '/', to: 'dashboard#index'
     get '/items', to: 'items#index'
     get '/orders/:id', to: 'orders#show'
+    patch '/item_orders/:id', to: 'item_orders#update'
   end
 
   namespace :admin do

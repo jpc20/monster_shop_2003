@@ -15,6 +15,8 @@ class ItemsController<ApplicationController
 
   def new
     @merchant = Merchant.find(params[:merchant_id])
+    return @item if params[:item]
+    @item = Hash.new("")
   end
 
   def create
@@ -26,6 +28,7 @@ class ItemsController<ApplicationController
       redirect_to "/merchants/#{@merchant.id}/items"
     else
       flash[:error] = item.errors.full_messages.to_sentence
+      @item = item_params
       render :new
     end
   end

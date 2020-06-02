@@ -221,4 +221,33 @@ RSpec.describe "As a merchant" do
     expect(page).to have_content(new_item.description)
     expect(page).to have_content("Inventory: #{new_item.inventory}")
   end
+
+  it "When adding item, all info must be correct" do
+    visit "/"
+    click_on "Login"
+    expect(current_path).to eq('/login')
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
+    click_on "Log In"
+    click_on "Your Items"
+
+    name = ""
+    price = 18
+    description = "No more chaffin'!"
+    image_url = "https://images-na.ssl-images-amazon.com/images/I/51HMpDXItgL._SX569_.jpg"
+    inventory = ""
+
+    click_button "Add Item"
+    expect(current_path).to eq("/merchants/#{@bike_shop.id}/items/new")
+    fill_in :name, with: name
+    fill_in :price, with: price
+    fill_in :description, with: description
+    fill_in :image, with: image_url
+    fill_in :inventory, with: inventory
+    click_button "Create Item"
+
+    expect(page).to have_content("Name can't be blank and Inventory can't be blank")
+    expect(page).to have_button("Create Item")
+    expect(current_path).to eq("/merchants/#{@bike_shop.id}/items")
+  end
 end

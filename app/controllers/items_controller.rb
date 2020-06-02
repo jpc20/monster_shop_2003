@@ -15,15 +15,20 @@ class ItemsController<ApplicationController
 
   def new
     @merchant = Merchant.find(params[:merchant_id])
+    return @item if params[:item]
+    @item = Hash.new("")
   end
 
   def create
     @merchant = Merchant.find(params[:merchant_id])
     item = @merchant.items.create(item_params)
     if item.save
+      flash[:success] = "Your item has been saved"
+      redirect_to "/merchant/items" and return if current_merchant?
       redirect_to "/merchants/#{@merchant.id}/items"
     else
       flash[:error] = item.errors.full_messages.to_sentence
+      @item = item_params
       render :new
     end
   end

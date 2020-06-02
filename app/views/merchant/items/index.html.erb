@@ -24,6 +24,7 @@
     </section>
     <% end %>
 </section>
+<%= button_to "Add Item", "/merchants/#{@merchant.id}/items/new", method: :get %>
 <section class="most_popular">
   <h2>Most Popular Items:</h2>
   <% @merchant.items.most_popular.each do |item| %>

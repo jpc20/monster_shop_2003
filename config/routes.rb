@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get '/', to: 'dashboard#index'
     get '/items', to: 'items#index'
     patch '/items/:id', to: 'items#update'
+    delete '/items/:id', to: 'items#destroy'
     get '/orders/:id', to: 'orders#show'
   end
 

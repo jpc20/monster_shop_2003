@@ -20,6 +20,7 @@
         <p>Inactive</p>
         <%= link_to "Activate", "/merchant/items/#{item.id}?type=activate", method: :patch %>
       <% end %>
+      <%= button_to "delete", "/merchant/items/#{item.id}", method: :delete if item.orders.empty?  %>
     </section>
     <% end %>
 </section>

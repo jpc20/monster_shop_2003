@@ -7,6 +7,7 @@ RSpec.describe "As a merchant" do
     @user = create(:user, role: 1, merchant_id: @bike_shop.id)
     @tire = @bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
     @seat = @bike_shop.items.create(name: "Seat", description: "So comfy!", price: 10, image: "https://images.unsplash.com/photo-1582743779682-351861923531?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", inventory: 10, active?: false)
+    @light = @bike_shop.items.create(name: "Light", description: "Bright!", price: 10, image: "https://images.unsplash.com/photo-1582743779682-351861923531?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", inventory: 10)
     @order1 = Order.create(name: @user.name, address: @user.address, city: @user.city,
       state: @user.state, zip: @user.zip, user_id: @user.id, status: "pending")
     @order2 = Order.create(name: @user.name, address: @user.address, city: @user.city,
@@ -157,6 +158,26 @@ RSpec.describe "As a merchant" do
     within "#item-#{@seat.id}" do
       expect(page).to have_content("Active")
     end
+  end
+  it "Can delete an item" do
+    visit "/"
+    click_on "Login"
+    expect(current_path).to eq('/login')
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
+    click_on "Log In"
+    click_on "Your Items"
+
+    within "#item-#{@seat.id}" do
+      expect(page).to_not have_content("delete")
+    end
+
+    within "#item-#{@light.id}" do
+      click_button("delete")
+    end
+    expect(current_path).to eq("/merchant/items")
+    expect(page).to have_content("#{@light.name} has been deleted")
+    expect(page).to_not have_css("#item-#{@light.id}")
   end
 
 end

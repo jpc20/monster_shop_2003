@@ -3,12 +3,15 @@ Rails.application.routes.draw do
   root "merchants#index"
   namespace :merchant do
     get '/', to: 'dashboard#index'
+    get '/items', to: 'items#index'
+    get '/orders/:id', to: 'orders#show'
   end
 
   namespace :admin do
     get '/', to: 'dashboard#index'
     get '/users', to: 'users#index'
     get '/merchants', to: 'merchants#index'
+    get '/merchants/:id', to: 'merchants#show'
     patch '/merchants/:id', to: 'merchants#update'
   end
 

@@ -18,7 +18,7 @@
         <%= link_to "Deactivate", "/merchant/items/#{item.id}?type=deactivate", method: :patch %>
       <% else %>
         <p>Inactive</p>
-        <%= link_to "Activate", "/merchant/items/#{item.id}", method: :patch %>
+        <%= link_to "Activate", "/merchant/items/#{item.id}?type=activate", method: :patch %>
       <% end %>
     </section>
     <% end %>

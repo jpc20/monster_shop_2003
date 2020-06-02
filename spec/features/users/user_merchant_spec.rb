@@ -107,7 +107,7 @@ RSpec.describe "As a merchant" do
     expect(current_path).to eq("/merchant/items")
   end
 
-  it "Can see all items and activate/deactivate them" do
+  it "Can see all items and deactivate them" do
     visit "/"
     click_on "Login"
     expect(current_path).to eq('/login')
@@ -138,6 +138,24 @@ RSpec.describe "As a merchant" do
     expect(page).to have_content("#{@tire.name} is no longer for sale")
     within "#item-#{@tire.id}" do
       expect(page).to have_content("Inactive")
+    end
+  end
+  it "Can see all items and deactivate them" do
+    visit "/"
+    click_on "Login"
+    expect(current_path).to eq('/login')
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
+    click_on "Log In"
+    click_on "Your Items"
+    within "#item-#{@seat.id}" do
+      click_link("Activate")
+    end
+
+    expect(current_path).to eq("/merchant/items")
+    expect(page).to have_content("#{@seat.name} is now available for sale")
+    within "#item-#{@seat.id}" do
+      expect(page).to have_content("Active")
     end
   end
 

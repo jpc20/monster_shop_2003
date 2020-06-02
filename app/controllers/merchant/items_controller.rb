@@ -8,8 +8,9 @@ class Merchant::ItemsController < Merchant::BaseController
     if params[:type] == "deactivate"
       item.update_attributes(active?: false)
       flash[:success] = "#{item.name} is no longer for sale"
-    else
-
+    elsif params[:type] == "activate"
+      item.update_attributes(active?: true)
+      flash[:success] = "#{item.name} is now available for sale"
     end
     redirect_to "/merchant/items"
   end

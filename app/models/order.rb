@@ -53,6 +53,7 @@ class Order <ApplicationRecord
             .select("items.image as image")
             .select("items.price as price")
             .select("items.id as item_id")
+            .select("items.inventory as inventory")
             .select("item_orders.status as status")
             .select("item_orders.id as item_order_id")
             .select("item_orders.quantity as quantity")

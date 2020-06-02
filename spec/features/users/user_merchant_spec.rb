@@ -84,6 +84,7 @@ RSpec.describe "As a merchant" do
     expect(page).to have_content(@order1.id)
     expect(page).to have_content(@order1.created_at)
     expect(page).to have_content(@order1.total_merchant_quantity(@bike_shop))
+    expect(page).to have_content(@order1.total_merchant_value(@bike_shop))
     expect(page).to have_content(@order1.created_at)
     expect(page).to_not have_content(@order2.id)
 

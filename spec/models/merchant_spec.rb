@@ -81,6 +81,7 @@ describe Merchant, type: :model do
 
       expect(@meg.pending_orders.first.id).to eq(order_1.id)
       expect(@meg.pending_orders.first.total_merchant_quantity(@meg.id)).to eq(4)
+      expect(@meg.pending_orders.first.total_merchant_value(@meg.id)).to eq(280)
     end
   end
 end

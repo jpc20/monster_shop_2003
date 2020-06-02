@@ -32,9 +32,16 @@ class Order <ApplicationRecord
   end
 
   def total_merchant_quantity(merchant_id)
-      Merchant.joins(:orders)
-            .where("merchants.id = ?", merchant_id)
-            .where("orders.id = ?", id)
-            .sum("item_orders.quantity")
+    Merchant.joins(:orders)
+          .where("merchants.id = ?", merchant_id)
+          .where("orders.id = ?", id)
+          .sum("item_orders.quantity")
+  end
+
+  def total_merchant_value(merchant_id)
+    Merchant.joins(:orders)
+          .where("merchants.id = ?", merchant_id)
+          .where("orders.id = ?", id)
+          .sum("item_orders.quantity * item_orders.price")
   end
 end

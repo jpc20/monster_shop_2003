@@ -23,7 +23,7 @@ class ItemsController<ApplicationController
     @merchant = Merchant.find(params[:merchant_id])
     item = @merchant.items.create(item_params)
     if item.save
-      flash[:succss] = "Your item has been saved"
+      flash[:success] = "Your item has been saved"
       redirect_to "/merchant/items" and return if current_merchant?
       redirect_to "/merchants/#{@merchant.id}/items"
     else

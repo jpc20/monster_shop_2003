@@ -16,7 +16,7 @@ class Merchant::ItemsController < Merchant::BaseController
     else
       @item.update(item_params)
       if @item.save
-        flash[:succes] = "Item Updated"
+        flash[:success] = "Item Updated"
         redirect_to "/merchant/items"
       else
         flash[:error] = @item.errors.full_messages.to_sentence

@@ -44,4 +44,16 @@ class Order <ApplicationRecord
           .where("orders.id = ?", id)
           .sum("item_orders.quantity * item_orders.price")
   end
+
+  def merchant_item_orders(merchant_id)
+    Merchant.joins(:orders)
+            .where("merchants.id = ?", merchant_id)
+            .where("orders.id = ?", id)
+            .select("items.name as name")
+            .select("items.image as image")
+            .select("items.price as price")
+            .select("items.id as item_id")
+            .select("item_orders.quantity as quantity")
+  end
+  #method for items that belong to that merchant story 49
 end

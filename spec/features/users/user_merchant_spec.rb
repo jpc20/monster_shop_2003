@@ -5,7 +5,6 @@ RSpec.describe "As a merchant" do
     @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
 
     @user = create(:user, role: 1, merchant_id: @bike_shop.id)
-    @user1 = create(:user, role: 0)
     @tire = @bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
     @seat = @bike_shop.items.create(name: "Seat", description: "So comfy!", price: 10, image: "https://images.unsplash.com/photo-1582743779682-351861923531?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", inventory: 10)
     @order1 = Order.create(name: @user.name, address: @user.address, city: @user.city,
@@ -110,10 +109,10 @@ RSpec.describe "As a merchant" do
 end
 describe "As a merchant" do
   it "Can see order show page" do
-    @flower_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
+    @flower_shop = Merchant.create(name: "Flower Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
     @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
     @user = create(:user, role: 1, merchant_id: @bike_shop.id)
-    @user1 = create(:user, role: 0)
+    @user1 = create(:user, role: 0, email: "merch@merch.com")
     @tire = @bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
     @seat = @bike_shop.items.create(name: "Seat", description: "So comfy!", price: 10, image: "https://images.unsplash.com/photo-1582743779682-351861923531?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60", inventory: 10)
     @order1 = Order.create(name: @user1.name, address: @user1.address, city: @user1.city,
@@ -134,6 +133,8 @@ describe "As a merchant" do
 
     click_on "#{@order1.id}"
     expect(current_path).to eq("/merchant/orders/#{@order1.id}")
+    save_and_open_page
+
     expect(page).to have_content(@user1.name)
     expect(page).to have_content(@user1.address)
     expect(page).to have_content(@user1.city)
@@ -144,11 +145,11 @@ describe "As a merchant" do
     expect(page).not_to have_content("Daisy")
 
     expect(page).to have_content(@tire.price)
-    expect(page).to have_content(@tire.image)#not gonna work
-    expect(page).to have_content(@tire.quantity)
+      expect(page).to have_css("img[src*='#{@tire.image}']")
+    expect(page).to have_content(@item_order1.quantity)
 
     click_on "Gatorskins"
-    expect(current_path).to eq.("/items/#{@tire.id}")
+    expect(current_path).to eq("/items/#{@tire.id}")
   end
 end
 # User Story 49, Merchant sees an order show page

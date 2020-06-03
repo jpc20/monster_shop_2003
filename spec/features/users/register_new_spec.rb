@@ -125,7 +125,7 @@ RSpec.describe "User registration form" do
     expect(current_path).to eq('/profile')
   end
 
-  it "Doesn't allow me log in more than once" do
+  it "can log out" do
     user = create(:user, role: 0)
     visit "/"
     click_on "Login"

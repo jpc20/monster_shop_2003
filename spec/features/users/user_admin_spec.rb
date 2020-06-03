@@ -150,4 +150,61 @@ RSpec.describe "As a Admin" do
     expect(current_path).to eq("/admin/merchants")
     expect(page).to have_content("#{@brian.name} has been activated")
   end
+
+  it "Admin can see a user index" do
+    user = create(:user, name: "Adam", role: 2)
+    merchant_user = create(:user, name: "Marty", role: 1, email: "fake.com")
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+
+    click_on "All Users"
+
+    expect(current_path).to eq("/admin/users")
+
+    within "#user-#{@user_2.id}" do
+      expect(page).to have_link(@user_2.name)
+      expect(page).to have_content(@user_2.created_at)
+      expect(page).to have_content("Default")
+    end
+    within "#user-#{merchant_user.id}" do
+      expect(page).to have_link(merchant_user.name)
+      expect(page).to have_content(merchant_user.created_at)
+      expect(page).to have_content("Merchant")
+    end
+    within "#user-#{user.id}" do
+      expect(page).to have_link(user.name)
+      expect(page).to have_content(user.created_at)
+      expect(page).to have_content("Admin")
+    end
+  end
+
+  it "Admin can see a user profile" do
+    user = create(:user, name: "Adam", role: 2)
+    merchant_user = create(:user, name: "Marty", role: 1, email: "fake.com")
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+
+    click_on "All Users"
+
+    expect(current_path).to eq("/admin/users")
+
+    within "#user-#{@user_2.id}" do
+      click_link(@user_2.name)
+    end
+    expect(current_path).to eq("/admin/users/#{@user_2.id}")
+    expect(page).to have_content(@user_2.name)
+    expect(page).to have_content(@user_2.address)
+    expect(page).to have_content(@user_2.city)
+    expect(page).to have_content(@user_2.state)
+    expect(page).to have_content(@user_2.zip)
+    expect(page).to have_content(@user_2.email)
+    expect(page).to_not have_content("Change Password")
+    expect(page).to_not have_content("Update Profile Information")
+  end
 end

@@ -180,7 +180,7 @@ RSpec.describe "As a Admin" do
     end
   end
 
-  it "Admin can delete a merchants items" do
+  it "Admin can add a merchants items" do
     user = create(:user, role: 2)
     name = "Chamois Buttr"
     price = 18
@@ -195,12 +195,12 @@ RSpec.describe "As a Admin" do
     visit "/admin/merchants/#{@meg.id}"
     click_link "Items"
     click_button "Add Item"
-    expect(current_path).to eq("/merchants/#{@meg.id}/items/new")
-    fill_in :name, with: name
-    fill_in :price, with: price
-    fill_in :description, with: description
-    fill_in :image, with: image_url
-    fill_in :inventory, with: inventory
+    expect(current_path).to eq("/admin/merchants/#{@meg.id}/items/new")
+    fill_in "Name", with: name
+    fill_in "Price", with: price
+    fill_in "Description", with: description
+    fill_in "Image", with: image_url
+    fill_in "Inventory", with: inventory
     click_button "Create Item"
     expect(current_path).to eq(admin_merchant_items_path(@meg.id))
     expect(page).to have_content("Your item has been saved")

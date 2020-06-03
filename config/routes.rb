@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     get '/', to: 'dashboard#index'
     resources :users, only: [:index, :show]
     resources :merchants, only: [:index, :show, :update] do
-      resources :items, only: [:index, :update]
+      resources :items, only: [:index, :update, :destroy]
     end
   end
 

@@ -21,6 +21,10 @@ class Admin::ItemsController < Admin::BaseController
     end
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
   def update
     @item = Item.find(params[:id])
     if params[:type] == "deactivate"
@@ -35,7 +39,7 @@ class Admin::ItemsController < Admin::BaseController
       @item.update(item_params)
       if @item.save
         flash[:success] = "Item Updated"
-        redirect_to admin_merchant_items_path(params[:merchant_id])
+        redirect_to admin_merchant_items_path(@item.merchant.id)
       else
         flash[:error] = @item.errors.full_messages.to_sentence
         render :edit

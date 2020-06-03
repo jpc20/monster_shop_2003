@@ -233,6 +233,31 @@ RSpec.describe "As a Admin" do
     expect(page).to have_button("Create Item")
   end
 
+  it "Admin can edit a merchants items" do
+    user = create(:user, role: 2)
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+    visit "/admin/merchants/#{@meg.id}"
+    click_link "Items"
+    within "#item-#{@tire.id}" do
+      click_button "Edit Item"
+    end
+    expect(current_path).to eq("/admin/merchants/#{@meg.id}/items/#{@tire.id}/edit")
+    fill_in "Name", with: "new name"
+    fill_in "Description", with: "new description"
+    click_button "Update Item"
+    expect(current_path).to eq(admin_merchant_items_path(@meg.id))
+    expect(page).to have_content("Item Updated")
+    within "#item-#{@tire.id}" do
+      expect(page).to have_content("new name")
+      expect(page).to have_content("new description")
+    end
+    expect(page).to have_content("Item Updated")
+  end
+
   it "Admin can delete a merchants items" do
     user = create(:user, role: 2)
     test_item = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)

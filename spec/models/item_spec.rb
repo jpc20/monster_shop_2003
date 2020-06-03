@@ -90,5 +90,11 @@ describe Item, type: :model do
       expect(Item.least_popular.last.name).to eq("Cards")
       expect(Item.least_popular.last.total_quantity).to eq(5)
     end
+
+    it "all_by_merchant" do
+      book_shop = Merchant.create(name: "Brian's Book Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      book = book_shop.items.create(name: "Book", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 51)
+      expect(Item.all_by_merchant(book_shop.id)).to eq([book])
+    end
   end
 end

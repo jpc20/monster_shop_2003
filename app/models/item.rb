@@ -46,4 +46,8 @@ class Item <ApplicationRecord
    .limit(5)
     # require "pry"; binding.pry
   end
+
+  def self.all_by_merchant(merch_id)
+    Item.where("merchant_id = ?", merch_id)
+  end
 end

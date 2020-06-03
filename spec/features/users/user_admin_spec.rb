@@ -197,7 +197,7 @@ RSpec.describe "As a Admin" do
     within "#user-#{@user_2.id}" do
       click_link(@user_2.name)
     end
-    expect(current_path).to eq("/admin/users/5")
+    expect(current_path).to eq("/admin/users/#{@user_2.id}")
     expect(page).to have_content(@user_2.name)
     expect(page).to have_content(@user_2.address)
     expect(page).to have_content(@user_2.city)

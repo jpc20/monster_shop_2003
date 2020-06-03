@@ -206,7 +206,34 @@ RSpec.describe "As a Admin" do
     expect(page).to have_content("Your item has been saved")
     expect(page).to have_content(name)
   end
-  it "Admin can add a merchants items" do
+  it "When adding item, all info must be correct" do
+    user = create(:user, role: 2)
+    name = ""
+    price = 18
+    description = "No more chaffin'!"
+    image_url = "https://images-na.ssl-images-amazon.com/images/I/51HMpDXItgL._SX569_.jpg"
+    inventory = ""
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+    visit "/admin/merchants/#{@meg.id}"
+    click_link "Items"
+    click_button "Add Item"
+
+    fill_in "Name", with: name
+    fill_in "Price", with: price
+    fill_in "Description", with: description
+    fill_in "Image", with: image_url
+    fill_in "Inventory", with: inventory
+    click_button "Create Item"
+
+    expect(page).to have_content("Name can't be blank, Inventory can't be blank, and Inventory is not a number")
+    expect(page).to have_button("Create Item")
+  end
+
+  it "Admin can delete a merchants items" do
     user = create(:user, role: 2)
     test_item = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
     visit "/"

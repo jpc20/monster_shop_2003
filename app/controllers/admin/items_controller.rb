@@ -16,7 +16,7 @@ class Admin::ItemsController < Admin::BaseController
       redirect_to admin_merchant_items_path(@merchant.id)
     else
       flash[:error] = item.errors.full_messages.to_sentence
-      @item = item_params
+      @item = Item.new(item_params)
       render :new
     end
   end

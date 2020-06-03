@@ -1,0 +1,11 @@
+<h1>All Users</h1>
+
+<section>
+  <% @users.each do |user| %>
+    <section id="user-<%= user.id %>">
+      <p><%= link_to "#{user.name}", "/admin/users/#{user.id}" %></p>
+      <p><%= user.created_at %></p>
+      <p><%= user.role.capitalize %></p>
+    </section>
+  <% end %>
+</section>

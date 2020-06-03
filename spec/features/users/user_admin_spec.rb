@@ -172,7 +172,11 @@ RSpec.describe "As a Admin" do
     end
     expect(current_path).to eq("/admin/merchants/#{@meg.id}/items")
     within "#item-#{@tire.id}" do
-      expect(page).to have_content("Acitive")
+      expect(page).to have_content("Active")
+    end
+    within "#item-#{@tire.id}" do
+      click_link("Deactivate")
+      expect(page).to have_content("Inactive")
     end
   end
 

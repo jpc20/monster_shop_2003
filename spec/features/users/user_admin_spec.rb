@@ -180,6 +180,23 @@ RSpec.describe "As a Admin" do
     end
   end
 
+  it "Admin can delete a merchants items" do
+    user = create(:user, role: 2)
+    test_item = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+    visit "/admin/merchants/#{@meg.id}"
+    click_link "Items"
+    within "#item-#{test_item.id}" do
+      click_on "delete"
+    end
+    expect(current_path).to eq(admin_merchant_items_path(@meg.id))
+    expect(page).to_not have_css("#item-#{test_item.id}")
+  end
+
   it "Admin can see a user index" do
     user = create(:user, name: "Adam", role: 2)
     merchant_user = create(:user, name: "Marty", role: 1, email: "fake.com")

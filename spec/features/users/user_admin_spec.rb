@@ -107,7 +107,7 @@ RSpec.describe "As a Admin" do
     fill_in :password, with: user.password
     click_on "Log In"
 
-    visit "/merchants"
+    visit "/admin/merchants"
 
     click_on "#{@meg.name}"
     expect(current_path).to eq("/admin/merchants/#{@meg.id}")
@@ -119,4 +119,35 @@ RSpec.describe "As a Admin" do
     expect(page).to have_content("Pending Orders:")
   end
 
+  it "Admin can see a merchant index" do
+    user = create(:user, role: 2)
+    visit "/"
+    click_on "Login"
+    fill_in :email, with: user.email
+    fill_in :password, with: user.password
+    click_on "Log In"
+
+    visit "/admin/merchants"
+    expect(page).to have_content(@meg.city)
+    expect(page).to have_content(@meg.state)
+    expect(page).to have_content(@brian.city)
+    expect(page).to have_content(@brian.state)
+
+    click_on "#{@meg.name}"
+    expect(current_path).to eq("/admin/merchants/#{@meg.id}")
+    visit "/admin/merchants"
+
+    click_on "#{@brian.name}"
+    expect(current_path).to eq("/admin/merchants/#{@brian.id}")
+    visit "/admin/merchants"
+
+    click_on "Disable #{@brian.name}"
+    expect(current_path).to eq("/admin/merchants")
+    expect(page).to have_content("#{@brian.name} has been disabled")
+    visit "/admin/merchants"
+
+    click_on "Activate #{@brian.name}"
+    expect(current_path).to eq("/admin/merchants")
+    expect(page).to have_content("#{@brian.name} has been activated")
+  end
 end

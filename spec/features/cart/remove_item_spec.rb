@@ -41,6 +41,25 @@ RSpec.describe 'Cart show' do
         expect(page).to have_css("#cart-item-#{@pencil.id}")
         expect(page).to have_css("#cart-item-#{@paper.id}")
       end
+
+      it "removes items from cart on log out" do
+        @user = create(:user, role: 0)
+        visit "/"
+        click_on "Login"
+        fill_in :email, with: @user.email
+        fill_in :password, with: @user.password
+        click_on "Log In"
+        visit "/items/#{@pencil.id}"
+        click_on "Add To Cart"
+        visit "/cart"
+        expect(page).to have_content("Yellow Pencil")
+
+        click_on "Log out"
+        expect(current_path).to eq(root_path)
+        expect(page).to have_content("Logged Out")
+        visit "/cart"
+        expect(page).not_to have_content("#cart-item-#{@pencil.id}")
+      end
     end
   end
 end

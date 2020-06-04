@@ -134,7 +134,7 @@ RSpec.describe "User Profile page" do
     expect(page).to have_content("Email has already been taken")
 
   end
-  it "User sees all of their information minus password" do
+  it "User can edit password" do
     visit "/"
 
     click_on "Register"

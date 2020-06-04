@@ -368,8 +368,8 @@ end
         state: @user1.state, zip: @user1.zip, user_id: @user1.id, status: "pending")
 
         @item_order1 = ItemOrder.create(order_id: @order1.id, item_id: @tire.id, price: 100, quantity: 2)
-        @item_order2 =ItemOrder.create(order_id: @order2.id, item_id: @seat.id, price: 10, quantity: 1)
-        @item_order3 = ItemOrder.create(order_id: @order1.id, item_id: @daisy.id, price: 1, quantity: 2)
+        @item_order2 =ItemOrder.create(order_id: @order2.id, item_id: @seat.id, price: 10, quantity: 1, status: "fulfilled")
+        @item_order3 = ItemOrder.create(order_id: @order1.id, item_id: @daisy.id, price: 1, quantity: 2, status: "fulfilled")
         visit "/"
         click_on "Login"
         expect(current_path).to eq('/login')
@@ -389,6 +389,8 @@ end
         expect(@tire.inventory).to eq(10)
         expect(@item_order1.status).to eq("fulfilled")
         expect(page).to have_content("You have fulfilled #{@tire.name}")
+        @order1.reload
+        expect(@order1.status).to eq("packaged")
 
         visit "/merchant/orders/#{@order1.id}"
         expect(page).to have_content("Item already fulfilled")

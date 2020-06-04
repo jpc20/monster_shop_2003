@@ -4,6 +4,7 @@ RSpec.describe "As a Admin" do
 
   before :each do
     @user_2 = create(:user, email: "greatest.com")
+    @user_3 = create(:user, name: "eric", email: "first.com")
 
     @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
     @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
@@ -12,7 +13,7 @@ RSpec.describe "As a Admin" do
     @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 
     @order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: @user_2.id, status: "packaged")
-    @order_2 = Order.create!(name: 'Max', address: '321 Stang Ave', city: 'Sershey', state: 'CO', zip: 20033, user_id: @user_2.id)
+    @order_2 = Order.create!(name: 'Max', address: '321 Stang Ave', city: 'Sershey', state: 'CO', zip: 20033, user_id: @user_3.id)
 
     @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, status: "fulfilled")
     @order_2.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3, status: "fulfilled")
@@ -80,6 +81,10 @@ RSpec.describe "As a Admin" do
     expect(page).to have_content(@order_2.created_at)
     expect(page).to have_content(@order_1.user.name)
     expect(page).to have_content(@order_2.user.name)
+
+    click_link "#{@order_1.user.name}"
+    expect(current_path).to eq("/admin/users/#{@order_1.user.id}")
+
   end
 
   it "admin can ship orders" do

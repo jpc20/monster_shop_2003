@@ -86,35 +86,31 @@ bundle exec rspec
  <p align="center">
  <img src="https://i.imgur.com/MvpbVUi.png">
 </p>
-
+---
+## Merchants
+<p align="center">
+ <img src="https://i.imgur.com/gXzTqW8.png">
+</p>
 ---
 ## Merchants Dashboard
 <p align="center">
- <img src="https://imgur.com/arThtw9">
+ <img src="https://i.imgur.com/arThtw9.png">
 </p>
-
+---
+## Items Index
+<p align="center">
+ <img src="https://i.imgur.com/JbmDfpX.png">
+</p>
 ---
 ## Item Show Page
 <p align="center">
- <img src="https://imgur.com/5LBorFk">
+ <img src="https://i.imgur.com/5LBorFk.png">
 </p>
 
 ---
 ## Cart
 <p align="center">
  <img src="https://imgur.com/csO2TwW.png">
-</p>
-
----
-## Items
-<p align="center">
- <img src="https://imgur.com/JbmDfpX">
-</p>
-
----
-## Merchants
-<p align="center">
- <img src="https://imgur.com/gXzTqW8">
 </p>
 
 

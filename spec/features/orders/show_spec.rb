@@ -9,7 +9,7 @@ RSpec.describe("Order Creation") do
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
       @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
       @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
-      @pull_toy = @brian.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+      @pull_toy = @mike.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
 
       visit "/items/#{@paper.id}"
       click_on "Add To Cart"
@@ -42,17 +42,22 @@ RSpec.describe("Order Creation") do
       @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, status: "fulfilled")
       @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3, status: "fulfilled")
 
-      visit "/orders/#{Order.last.id}"
+      visit "/orders/#{@order_1.id}"
       expect(@order_1.item_orders.first.status).to eq("fulfilled")
       expect(@order_1.item_orders.last.status).to eq("fulfilled")
-      expect(@tire.inventory).to eq(32)
       expect(@tire.inventory).to eq(12)
+      expect(@pull_toy.inventory).to eq(32)
 
 
       click_on "Cancel Order"
-      expect(Order.last.status).to eq("cancelled")
+      @order_1.reload
+      @tire.reload
+      @pull_toy.reload
+      expect(@order_1.status).to eq("cancelled")
       expect(@order_1.item_orders.first.status).to eq("unfulfilled")
       expect(@order_1.item_orders.last.status).to eq("unfulfilled")
+      expect(@tire.inventory).to eq(14)
+      expect(@pull_toy.inventory).to eq(35)
 
 
       expect(current_path).to eq("/profile")

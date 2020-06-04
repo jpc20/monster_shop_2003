@@ -168,8 +168,45 @@ RSpec.describe "User Profile page" do
     click_on "Submit"
     expect(current_path).to eq('/profile')
     expect(page).to have_content("Your password has been changed!")
-
   end
+
+  it "User sees error message if password and confirmation do not match" do
+    visit "/"
+
+    click_on "Register"
+
+    expect(current_path).to eq('/register')
+
+    name = "funbucket13"
+    address = "test"
+    city = "denver"
+    state = "CO"
+    zip = "80127"
+    email = "bucket@bucket.com"
+    password = "1234"
+
+    fill_in :name, with: name
+    fill_in :address, with: address
+    fill_in :city, with: city
+    fill_in :state, with: state
+    fill_in :zip, with: zip
+    fill_in :email, with: email
+    fill_in :password, with: password
+    fill_in :password_confirmation, with: password
+
+    click_on "Submit"
+
+    expect(current_path).to eq('/profile')
+    click_on "Change Password"
+    expect(current_path).to eq('/register/password')
+    fill_in :password, with: "5678"
+    fill_in :password_confirmation, with: "8765"
+    click_on "Submit"
+
+    expect(current_path).to eq("/users/password_change")
+    expect(page).to have_content("Password and Confirmation do not match")
+  end
+
   it "displays orders link" do
     @user = create(:user)
     bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)

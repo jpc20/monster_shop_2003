@@ -1,6 +1,10 @@
 # Monster Shop
 ### BE Mod 2 Week 4/5 Group Project
 
+<p align="center">
+  <a href="https://pure-waters-06944.herokuapp.com/">View our Monster Shop 2003</a>
+ </p>
+
 ### Team
 <p>
 <a href="https://github.com/jpc20">Jack Cullen</a>
@@ -32,10 +36,6 @@
 - shoulda-matchers
 - factory_bot_rails
 - orderly
-
-<p align="center">
-  <a href="https://pure-waters-06944.herokuapp.com/">View our Monster Shop 2003</a>
- </p>
 
 # Getting Started
 ## Prerequisites

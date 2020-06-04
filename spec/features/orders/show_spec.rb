@@ -38,6 +38,7 @@ RSpec.describe("Order Creation") do
     end
     it "can cancel order" do
       @order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      @order_2 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: "shipped")
 
       @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2, status: "fulfilled")
       @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3, status: "fulfilled")
@@ -59,9 +60,11 @@ RSpec.describe("Order Creation") do
       expect(@tire.inventory).to eq(14)
       expect(@pull_toy.inventory).to eq(35)
 
-
       expect(current_path).to eq("/profile")
       expect(page).to have_content("Your order has been cancelled!")
+      visit "/orders/#{@order_2.id}"
+      expect(page).to_not have_button("Cancel Order")
+
     end
   end
   it "can package order" do

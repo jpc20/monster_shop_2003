@@ -5,6 +5,20 @@ BE Mod 2 Week 4/5 Group Project
 
 "Monster Shop" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Users who work for a merchant can mark their items as 'fulfilled'; the last merchant to mark items in an order as 'fulfilled' will be able to get "shipped" by an admin. Each user role will have access to some or all CRUD functionality for application models
 
+# Team
+<p>
+  <a href="https://github.com/jpc20">Jack Cullen</a>
+ </p>
+ <p>
+  <a href="https://github.com/janegreene">Jane Greene</a>
+ </p>
+ <p>
+  <a href="https://github.com/Lithnotep">Max Mitrani </a>
+ </p>
+ <p>
+  <a href="https://github.com/Ashkanthegreat"> Ashkan Abbasi</a>
+ </p>
+
 ### Rails
 * Create routes for namespaced routes
 * Implement partials to break a page into reusable components
@@ -26,7 +40,7 @@ BE Mod 2 Week 4/5 Group Project
 
 
 <p align="center">
-  <a href="https://pure-waters-06944.herokuapp.com/">Monster Shop 2003</a>
+  <a href="https://pure-waters-06944.herokuapp.com/">View our Monster Shop 2003</a>
  </p>
 
 # Getting Started
@@ -70,7 +84,7 @@ bundle exec rspec
 ---
 ## Register
  <p align="center">
- <img src="https://imgur.com/MvpbVUi">
+ <img src="https://i.imgur.com/MvpbVUi.png">
 </p>
 
 ---
@@ -103,19 +117,7 @@ bundle exec rspec
  <img src="https://imgur.com/gXzTqW8">
 </p>
 
-# Team
-<p>
-  <a href="https://github.com/jpc20">Jack Cullen</a>
- </p>
- <p>
-  <a href="https://github.com/janegreene">Jane Greene</a>
- </p>
- <p>
-  <a href="https://github.com/Lithnotep">Max Mitrani </a>
- </p>
- <p>
-  <a href="https://github.com/Ashkanthegreat"> Ashkan Abbasi</a>
- </p>
+
 
 
  # If you are interested in contributing:

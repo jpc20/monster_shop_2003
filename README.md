@@ -1,7 +1,7 @@
 # Monster Shop
-BE Mod 2 Week 4/5 Group Project
+### BE Mod 2 Week 4/5 Group Project
 
-### Team 2003
+### Team
 <p>
 <a href="https://github.com/jpc20">Jack Cullen</a>
 </p>
@@ -14,6 +14,7 @@ BE Mod 2 Week 4/5 Group Project
 <p>
 <a href="https://github.com/Ashkanthegreat"> Ashkan Abbasi</a>
 </p>
+
 ## Background and Description
 
 "Monster Shop" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Users who work for a merchant can mark their items as 'fulfilled'; the last merchant to mark items in an order as 'fulfilled' will be able to get "shipped" by an admin. Each user role will have access to some or all CRUD functionality for application models
@@ -80,32 +81,30 @@ bundle exec rspec
  <p align="center">
  <img src="https://i.imgur.com/MvpbVUi.png">
 </p>
----
+
 
 ## Merchants
 <p align="center">
  <img src="https://i.imgur.com/gXzTqW8.png">
 </p>
----
 
 ## Merchants Dashboard
 <p align="center">
  <img src="https://i.imgur.com/arThtw9.png">
 </p>
----
+
 
 ## Items Index
 <p align="center">
  <img src="https://i.imgur.com/JbmDfpX.png">
 </p>
----
+
 
 ## Item Show Page
 <p align="center">
  <img src="https://i.imgur.com/5LBorFk.png">
 </p>
 
----
 
  ### If you are interested in contributing:
 - Fork repo (https://github.com/Lithnotep/monster_shop_2003)

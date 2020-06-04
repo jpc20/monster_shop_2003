@@ -58,5 +58,11 @@ class Order <ApplicationRecord
             .select("item_orders.id as item_order_id")
             .select("item_orders.quantity as quantity")
   end
-  #method for items that belong to that merchant story 49
+
+  def item_order_return
+    item_orders.each do |item_order|
+      item_order.update_attribute(:status, "unfulfilled")
+
+  end
+
 end

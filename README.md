@@ -82,36 +82,38 @@ bundle exec rspec
 3. Merchant Employee - this user works for a merchant. They can fulfill orders on behalf of their merchant. They also have the same permissions as a regular user (adding items to a cart and checking out)
 4. Admin User - a registered user who has "superuser" access to all areas of the application; user is logged in to perform their work
 ---
+
 ## Register
  <p align="center">
  <img src="https://i.imgur.com/MvpbVUi.png">
 </p>
 ---
+
 ## Merchants
 <p align="center">
  <img src="https://i.imgur.com/gXzTqW8.png">
 </p>
 ---
+
 ## Merchants Dashboard
 <p align="center">
  <img src="https://i.imgur.com/arThtw9.png">
 </p>
 ---
+
 ## Items Index
 <p align="center">
  <img src="https://i.imgur.com/JbmDfpX.png">
 </p>
 ---
+
 ## Item Show Page
 <p align="center">
  <img src="https://i.imgur.com/5LBorFk.png">
 </p>
 
 ---
-## Cart
-<p align="center">
- <img src="https://imgur.com/csO2TwW.png">
-</p>
+
 
 
 

@@ -3,7 +3,7 @@
   <p align = "center"><%= @merchant.address %></p>
   <p align = "center"><%= @merchant.city %>, <%= @merchant.state %>, <%= @merchant.zip %></p>
 
-  <ul><%= link_to "Your Items", "/merchant/items" %></ul>
+  <ul><%= link_to "Items", "/admin/merchants/#{@merchant.id}/items" %></ul>
 
 <h3>Pending Orders:</h3>
 

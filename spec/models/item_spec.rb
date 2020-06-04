@@ -90,5 +90,7 @@ describe Item, type: :model do
       expect(Item.least_popular.last.name).to eq("Cards")
       expect(Item.least_popular.last.total_quantity).to eq(5)
     end
+
+
   end
 end

@@ -1,43 +1,36 @@
 # Monster Shop
 BE Mod 2 Week 4/5 Group Project
 
+### Team 2003
+<p>
+<a href="https://github.com/jpc20">Jack Cullen</a>
+</p>
+<p>
+<a href="https://github.com/janegreene">Jane Greene</a>
+</p>
+<p>
+<a href="https://github.com/Lithnotep">Max Mitrani </a>
+</p>
+<p>
+<a href="https://github.com/Ashkanthegreat"> Ashkan Abbasi</a>
+</p>
 ## Background and Description
 
 "Monster Shop" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Users who work for a merchant can mark their items as 'fulfilled'; the last merchant to mark items in an order as 'fulfilled' will be able to get "shipped" by an admin. Each user role will have access to some or all CRUD functionality for application models
 
-# Team
-<p>
-  <a href="https://github.com/jpc20">Jack Cullen</a>
- </p>
- <p>
-  <a href="https://github.com/janegreene">Jane Greene</a>
- </p>
- <p>
-  <a href="https://github.com/Lithnotep">Max Mitrani </a>
- </p>
- <p>
-  <a href="https://github.com/Ashkanthegreat"> Ashkan Abbasi</a>
- </p>
+## Tech
+- Rails 5.1.x
+- PostgreSQL
 
-### Rails
-* Create routes for namespaced routes
-* Implement partials to break a page into reusable components
-* Use Sessions to store information about a user and implement login/logout functionality
-* Use filters (e.g. `before_action`) in a Rails controller
-* Limit functionality to authorized users
-* Use BCrypt to hash user passwords before storing in the database
-
-
-### Databases
-* PostgreSQL
-
-## Requirements
-
-- must use Rails 5.1.x
-- must use PostgreSQL
-- must use 'bcrypt' for authentication
-
-
+### Gems
+- rspec-rails
+- capybara
+- launchy
+- pry
+- simplecov
+- shoulda-matchers
+- factory_bot_rails
+- orderly
 
 <p align="center">
   <a href="https://pure-waters-06944.herokuapp.com/">View our Monster Shop 2003</a>
@@ -114,11 +107,7 @@ bundle exec rspec
 
 ---
 
-
-
-
-
- # If you are interested in contributing:
+ ### If you are interested in contributing:
 - Fork repo (https://github.com/Lithnotep/monster_shop_2003)
 - Create your feature branch (`git checkout -b feature/fooBar`)
 - Commit your changes (`git commit -m 'Add some fooBar'`)

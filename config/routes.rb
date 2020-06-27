@@ -84,8 +84,11 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :new, :create]
   end
 
-  get "/items/:item_id/reviews/new", to: "reviews#new"
-  post "/items/:item_id/reviews", to: "reviews#create"
+  # get "/items/:item_id/reviews/new", to: "reviews#new"
+  # post "/items/:item_id/reviews", to: "reviews#create"
+  resources :items do
+    resources :reviews, only:[:new, :create]
+  end
 
   get "/reviews/:id/edit", to: "reviews#edit"
   patch "/reviews/:id", to: "reviews#update"

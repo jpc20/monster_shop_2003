@@ -57,7 +57,7 @@ Rails.application.routes.draw do
   get "/profile", to: 'users#show'
   get "/profile/orders", to: "orders#index"
   get "profile/orders/:id", to:"orders#show"
-
+  # also regarding sessions i had trouble with resources here too.
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"

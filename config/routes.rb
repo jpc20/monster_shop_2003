@@ -42,14 +42,17 @@ Rails.application.routes.draw do
   delete '/merchant/items/:id', to: 'merchant/items#destroy'
 
 
-
+  # Unsure of how to change routes for register to resources. I will need to work on this one.
   get "/register", to: 'users#new'
   get "/register/edit", to: 'users#edit'
   get "/register/password", to: 'users#password'
 
-  post "/users", to: 'users#create'
-  patch "/users", to: 'users#update'
+  # post "/users", to: 'users#create'
+  # patch "/users", to: 'users#update'
+  # patch "/users/password_change", to: "users#password_change"
   patch "/users/password_change", to: "users#password_change"
+  resources :users, only:[:create, :update]
+
 
   get "/profile", to: 'users#show'
   get "/profile/orders", to: "orders#index"

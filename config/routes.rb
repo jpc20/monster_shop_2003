@@ -53,7 +53,7 @@ Rails.application.routes.draw do
   patch "/users/password_change", to: "users#password_change"
   resources :users, only:[:create, :update]
 
-
+  # similar to register I was not able to figure out how to make this into resources.
   get "/profile", to: 'users#show'
   get "/profile/orders", to: "orders#index"
   get "profile/orders/:id", to:"orders#show"

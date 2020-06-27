@@ -95,14 +95,16 @@ Rails.application.routes.draw do
   # delete "/reviews/:id", to: "reviews#destroy"
   resources :reviews, only:[:edit, :update, :destroy]
 
+  # couldn't figure out resource for this one
   post "/cart/:item_id", to: "cart#add_item"
   get "/cart", to: "cart#show"
   delete "/cart", to: "cart#empty"
   delete "/cart/:item_id", to: "cart#remove_item"
 
-  get "/orders/new", to: "orders#new"
-  post "/orders", to: "orders#create"
-  get "/orders/:id", to: "orders#show"
+  # get "/orders/new", to: "orders#new"
+  # post "/orders", to: "orders#create"
+  # get "/orders/:id", to: "orders#show"
+  resources :orders, only:[:new, :create, :show]
   patch "/orders/:id/cancel", to: 'orders#cancel'
   patch "/orders/:id/ship", to: 'orders#ship'
 end

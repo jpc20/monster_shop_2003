@@ -46,7 +46,7 @@ gem install rails -5.1.7
 ## Installing
 #### Clone repository:
 ```javascript
-git clone git@github.com:Lithnotep/monster_shop_2003.git
+git clone git@github.com:jpc20/monster_shop_2003.git
 ```
 #### Navigate into directory:
 ```javascript
